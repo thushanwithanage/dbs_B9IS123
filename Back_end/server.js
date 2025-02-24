@@ -1,7 +1,13 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
+
+const user = require("./routes/user");
+const auth = require("./routes/auth");
+const pet = require("./routes/pet");
 
 const corsConfig = {
     credentials: true,
@@ -11,12 +17,18 @@ const corsConfig = {
 app.use(cors(corsConfig));
 app.use(express.json());
 
-// Define a route for the root URL
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+app.use("/user", user);
+app.use("/auth", auth);
+app.use("/pet", pet);
 
-const port = process.env.PORT || 5000;
+const port = 9000;
+
+mongoose
+    .connect("mongodb+srv://thushan:ugPVYNkBqIVgaz7R@cluster0.wt20z.mongodb.net/db_20058324?retryWrites=true&w=majority&appName=Cluster0")
+    .then(() => {
+        console.log("Database connected successfully");
+    })
+    .catch((err) => console.log(err));
 
 app.listen(port, () => {
     console.log("Listening on port " + port);
