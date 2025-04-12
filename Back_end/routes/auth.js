@@ -6,14 +6,16 @@ const user = require("../models/user");
 const router = express.Router();
 router.use(cors());
 
-router.post("/", async (req, res) => 
+const loginvalidator = require("../middlewares/auth");
+
+router.post("/", loginvalidator, async (req, res) => 
 {
     const { email, password } = req.body;
 
-    if (!email || !password) 
+    /*if (!email || !password) 
     {
         return res.status(400).send("Email and password are required");
-    }
+    }*/
 
     try 
     {
@@ -21,21 +23,21 @@ router.post("/", async (req, res) =>
 
         if (!loginUser) 
         {
-            return res.status(404).send("User not found");
+            return res.status(404).json({error:"User not found"});
         }
 
         if (loginUser.password === password) 
         {
-            return res.status(200).send(loginUser.isAdmin);
+            return res.status(200).json({data:loginUser.isAdmin});
         } 
         else 
         {
-            return res.status(401).send("Invalid password");
+            return res.status(401).json({error:"Invalid password"});
         }
     } 
     catch (error) 
     {
-        return res.status(500).send("Error: " + error.message);
+        return res.status(401).json({error:"Error"});
     }
 });
 

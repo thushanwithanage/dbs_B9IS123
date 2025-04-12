@@ -26,20 +26,14 @@ class Login extends Component {
             password: this.state.password,
         };
 
-        try {
-            if (user.email.length !== 0 && user.password.length !== 0) {
-                const { data } = await axios.post("http://localhost:9000/auth", user);
-                if (data) {
-                    window.location.href = "/admin";
-                } else {
-                    window.location.href = "/plist";
-                }
-            } else if (user.email.length === 0) {
-                toast.error("Please enter email");
-            } else if (user.password.length === 0) {
-                toast.error("Please enter password");
-            }
-        } catch (e) {
+        try 
+        {
+            const response = await axios.post("http://localhost:9000/auth", user);
+            console.log(response);
+        } 
+        catch (e) 
+        {
+            console.log(e);
             toast.error(e.response.data);
         }
     };
