@@ -5,11 +5,13 @@
   "main": "server.js",
   "author": "",
   "devDependencies": {
-    "eslint": "^8.21.0"
+    "eslint": "^8.21.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.1.0"
   },
   "eslintConfig": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
