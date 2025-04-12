@@ -1,6 +1,0 @@
-C:\Users\kalha\Downloads\MSC@DBS\Programming\Assignment\Back_end\obj\Debug\Back_end.njsproj.AssemblyReference.cache
-C:\Users\kalha\Downloads\MSC@DBS\Programming\Assignment\Back_end\obj\Debug\Back_end.njsproj.CoreCompileInputs.cache
-C:\Users\kalha\Downloads\MSC@DBS\Programming\Assignment\Back_end\bin\Microsoft.NodejsTools.WebRole.dll
-C:\Users\kalha\Downloads\MSC@DBS\Programming\dbs_B9IS123\Back_end\obj\Debug\Back_end.njsproj.AssemblyReference.cache
-C:\Users\kalha\Downloads\MSC@DBS\Programming\dbs_B9IS123\Back_end\obj\Debug\Back_end.njsproj.CoreCompileInputs.cache
-C:\Users\kalha\Downloads\MSC@DBS\Programming\dbs_B9IS123\Back_end\bin\Microsoft.NodejsTools.WebRole.dll
