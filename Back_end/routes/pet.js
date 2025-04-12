@@ -113,7 +113,7 @@ router.put("/:id", async (req, res) =>
 
         if (!updatedPet) 
         {
-            return res.status(404).send("User not found");
+            return res.status(404).send("Pet not found");
         }
 
         return res.status(200).send("Pet updated successfully");
@@ -138,6 +138,28 @@ router.delete("/:id", async (req, res) =>
         }
 
         return res.status(200).send("Pet deleted successfully");
+    } 
+    catch (e) 
+    {
+        return res.status(500).send("Error: " + e.message);
+    }
+});
+
+router.get("/types/count", async (req, res) => 
+{
+    try 
+    {
+        const petTypeCount = await pet.aggregate([
+            { $group: { _id: "$pettype", count: { $sum: 1 } } },
+            { $project: { _id: 0, pettype: "$_id", count: 1 } }
+        ]);
+
+        if (!petTypeCount || petTypeCount.length === 0) 
+        {
+            return res.status(404).send("Pet types not found");
+        }
+
+        return res.status(200).json(petTypeCount);
     } 
     catch (e) 
     {

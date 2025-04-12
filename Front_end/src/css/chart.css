@@ -1,0 +1,85 @@
+.chart-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+.chart-title {
+    text-align: left;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 2rem;
+}
+
+.chart-loading {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.chart-spinner {
+    width: 3rem;
+    height: 3rem;
+    color: #3498db;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.chart-card-body {
+    padding: 1.5rem;
+}
+
+.chart-wrapper {
+    height: 250px;
+    width: 100%;
+    position: relative;
+}
+
+.Toastify__toast-container {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 0 0.5rem;
+    }
+
+    .chart-title {
+        font-size: 1.5rem;
+    }
+
+    .chart-wrapper {
+        height: 200px;
+    }
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-nav-btn {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+    .admin-nav-btn:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+
+    .admin-nav-btn i {
+        margin-right: 8px;
+    }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Link } from 'react-router-dom';
 import "../css/admin.css";
 
 class Admin extends Component {
@@ -32,13 +32,11 @@ class Admin extends Component {
     };
 
     handleDelete = async (petId) => {
-        // Confirmation before deleting
         const confirmDelete = window.confirm("Are you sure you want to delete this pet?");
         if (!confirmDelete) return;
 
         try {
             await axios.delete(`http://localhost:9000/pet/${petId}`);
-            // Remove the deleted pet from state
             this.setState(prevState => ({
                 pets: prevState.pets.filter(pet => pet._id !== petId),
             }));
@@ -67,12 +65,11 @@ class Admin extends Component {
 
         try {
             await axios.put(`http://localhost:9000/pet/${editingPet._id}`, updatedPet);
-            // Update the pets state with the updated pet data
             this.setState(prevState => ({
                 pets: prevState.pets.map(pet =>
                     pet._id === editingPet._id ? { ...pet, ...updatedPet } : pet
                 ),
-                editingPet: null, // Close the edit form after updating
+                editingPet: null,
             }));
             toast.success("Pet updated successfully");
         } catch (error) {
@@ -109,10 +106,8 @@ class Admin extends Component {
 
         try {
             const { data } = await axios.post('http://localhost:9000/pet', newPet);
-            console.log(data);
-            // Add the new pet to the pets state
             this.setState(prevState => ({
-                pets: [...prevState.pets, data], // Ensure the new pet is added to the list
+                pets: [...prevState.pets, data],
                 addingNewPet: false,
                 newPetName: '',
                 newPetDescription: '',
@@ -129,11 +124,19 @@ class Admin extends Component {
 
         return (
             <div className="admin-container">
-                <h2>Pet List</h2>
-
-                <button onClick={this.handleAddNewPet} className="add-new-pet-btn">
-                    Add New Pet
-                </button>
+                <div className="admin-header">
+                    <h2>Pet List</h2>
+                    <div className="admin-actions">
+                        <button onClick={this.handleAddNewPet} className="add-new-pet-btn">
+                            <i className="bi bi-plus-circle-fill me-2"></i>
+                            Add New Pet
+                        </button>
+                        <Link to="/chart" className="btn btn-primary">
+                            <i className="bi bi-bar-chart-fill me-2"></i>
+                            View Statistics
+                        </Link>
+                    </div>
+                </div>
 
                 {addingNewPet && (
                     <div className="add-new-pet-form">
@@ -184,7 +187,7 @@ class Admin extends Component {
                                 <th>Pet Name</th>
                                 <th>Description</th>
                                 <th>Type</th>
-                                <th>Actions</th> {/* Column for Edit and Delete */}
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -230,7 +233,7 @@ class Admin extends Component {
                             <label>Pet Type</label>
                             <select
                                 value={updatedPetType}
-                                disabled // Disable the dropdown
+                                disabled
                             >
                                 {petTypes.map((type, index) => (
                                     <option key={index} value={type}>

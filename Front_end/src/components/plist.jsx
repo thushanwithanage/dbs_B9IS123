@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS import
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import "../css/plist.css"; // Your custom styles
+import "../css/plist.css";
 
 class PList extends Component {
     state = {

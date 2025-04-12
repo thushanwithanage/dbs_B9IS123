@@ -2,8 +2,19 @@
     padding: 20px;
 }
 
-.add-new-pet-btn {
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.add-new-pet-btn {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
@@ -16,6 +27,22 @@
         background-color: #45a049;
     }
 
+.view-stats-btn {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+    .view-stats-btn:hover {
+        background-color: #0b7dda;
+    }
+
 .add-new-pet-form, .edit-form {
     margin-top: 20px;
     padding: 20px;
@@ -25,7 +52,7 @@
 }
 
 .form-group {
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
 
     .form-group label {
