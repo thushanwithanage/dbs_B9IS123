@@ -25,6 +25,19 @@ router.get("/", async (req, res) =>
     }
 });
 
+
+router.get("/types", async (req, res) => {
+    try 
+    {
+        let petTypes = await pet.distinct("pettype");
+        return res.status(200).json(petTypes);
+    } 
+    catch (e) 
+    {
+        return res.status(500).send("Error: " + e.message);
+    }
+});
+
 router.get("/:id", async (req, res) => 
 {
     try 
@@ -64,7 +77,7 @@ router.post("/", async (req, res) =>
 
         await newPet.save();
 
-        return res.status(201).send("Pet created successfully");
+        return res.status(201).send(newPet);
     } 
     catch (e) 
     {
