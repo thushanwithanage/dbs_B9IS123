@@ -2,16 +2,6 @@
 
 This is a React-based Pet Management System that allows administrators to manage pets, including adding, editing, and deleting pet records. The application also provides a feature to filter pets by type and view statistics.
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Features](#features)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
-
 ### 1. Installation
 
 1. Clone the repository:
