@@ -36,13 +36,28 @@ class Admin extends Component {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`http://localhost:9000/pet/${petId}`);
-            this.setState(prevState => ({
+            const {data} = await axios.get(`http://localhost:9000/pet/${petId}`);
+            const {status: deleteStatus} = await axios.delete(`http://localhost:9000/pet/${petId}`);
+            if(deleteStatus === 204)
+            {
+                this.setState(prevState => ({
                 pets: prevState.pets.filter(pet => pet._id !== petId),
-            }));
-            toast.success("Pet deleted successfully");
+                }));
+                toast.success("Pet deleted successfully");
+
+                const {status: emailStatus} = await axios.post(`http://localhost:9000/pet/email`, data);
+                if(emailStatus === 200)
+                {
+                    toast.success("Successfully send email to administrator");
+                }
+            }
+            else
+            {
+                toast.error("Error deleting pet");
+            }
+            
         } catch (error) {
-            toast.error("Error deleting pet");
+            toast.error("Error");
         }
     };
 
@@ -64,14 +79,21 @@ class Admin extends Component {
         };
 
         try {
-            await axios.put(`http://localhost:9000/pet/${editingPet._id}`, updatedPet);
-            this.setState(prevState => ({
+            const {status} = await axios.put(`http://localhost:9000/pet/${editingPet._id}`, updatedPet);
+            if (status === 204)
+            {
+                this.setState(prevState => ({
                 pets: prevState.pets.map(pet =>
                     pet._id === editingPet._id ? { ...pet, ...updatedPet } : pet
                 ),
-                editingPet: null,
-            }));
-            toast.success("Pet updated successfully");
+                    editingPet: null,
+                }));
+                toast.success("Pet updated successfully");
+            }
+            else
+            {
+                toast.error("Error updating pet");
+            }
         } catch (error) {
             toast.error("Error updating pet");
         }
@@ -105,15 +127,22 @@ class Admin extends Component {
         };
 
         try {
-            const { data } = await axios.post('http://localhost:9000/pet', newPet);
-            this.setState(prevState => ({
+            const { data, status } = await axios.post('http://localhost:9000/pet', newPet);
+            if(status === 201)
+            {
+                this.setState(prevState => ({
                 pets: [...prevState.pets, data],
-                addingNewPet: false,
-                newPetName: '',
-                newPetDescription: '',
-                newPetType: '',
-            }));
-            toast.success("New pet added successfully");
+                    addingNewPet: false,
+                    newPetName: '',
+                    newPetDescription: '',
+                    newPetType: '',
+                }));
+                toast.success("New pet added successfully");
+            }
+            else
+            {
+                toast.error("Error adding new pet");
+            }
         } catch (error) {
             toast.error("Error adding new pet");
         }
