@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+var nodemailer = require("nodemailer");
 
 const pet = require("../models/pet");
 
@@ -51,7 +52,7 @@ router.get("/:id", async (req, res) =>
             return res.status(404).send("Pet not found.");
         }
 
-        return res.status(200).send(selectedPet);
+        return res.status(200).json(selectedPet);
     } 
     catch (e) 
     {
@@ -116,7 +117,7 @@ router.put("/:id", async (req, res) =>
             return res.status(404).send("Pet not found");
         }
 
-        return res.status(200).send("Pet updated successfully");
+        return res.status(204).send("Pet updated successfully");
     } 
     catch (e) 
     {
@@ -137,7 +138,7 @@ router.delete("/:id", async (req, res) =>
             return res.status(404).send("Pet not found");
         }
 
-        return res.status(200).send("Pet deleted successfully");
+        return res.status(204).send("Pet deleted successfully");
     } 
     catch (e) 
     {
@@ -166,5 +167,51 @@ router.get("/types/count", async (req, res) =>
         return res.status(500).send("Error: " + e.message);
     }
 });
+
+router.post("/email", async (req, res) => 
+{
+    try 
+    {  
+        const { petname, _id } = req.body;
+
+        var transporter = nodemailer.createTransport({
+        service: process.env.EMAIL_SERVICE,
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.PASSWORD,
+        },
+      });
+
+      var mailOptions = 
+      {
+        from: process.env.EMAIL_ADDRESS,
+        to: process.env.ADMIN_EMAIL_ADDRESS,
+        subject: "Pet deleted from system",
+        text:
+          "Hello user,\n\n"+
+          "Pet deleted from the system\n\n"+
+            "Pet Id: "+_id+"\n"+
+            "Pet name: "+petname+"\n\n"+
+          "Thanks\n"+
+          "(This is an automated email)"
+      };
+  
+      transporter.sendMail(mailOptions, function (error, info) 
+      {
+        if (error) 
+        {
+          return res.status(400).send("Failed to send email");
+        } 
+        else 
+        {
+          return res.status(200).send("Email sent successfully");
+        }
+      });
+    } 
+    catch (e) 
+    {
+        return res.status(500).send("Error: " + e.message);
+    }
+  });
 
 module.exports = router;

@@ -12,11 +12,6 @@ router.post("/", loginvalidator, async (req, res) =>
 {
     const { email, password } = req.body;
 
-    /*if (!email || !password) 
-    {
-        return res.status(400).send("Email and password are required");
-    }*/
-
     try 
     {
         const loginUser = await user.findOne({ email });
