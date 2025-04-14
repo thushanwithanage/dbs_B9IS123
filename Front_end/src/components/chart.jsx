@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bar } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';  // Added this import
+import { Link } from 'react-router-dom'; 
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,6 +14,7 @@ import {
     Legend,
 } from 'chart.js';
 import "../css/chart.css";
+import config from '../config';
 
 ChartJS.register(
     CategoryScale,
@@ -41,7 +42,7 @@ class Chart extends Component {
 
     componentDidMount = async () => {
         try {
-            const { data: petTypeCounts } = await axios.get('http://localhost:9000/pet/types/count');
+            const { data: petTypeCounts } = await axios.get(`${config.apiUrl}/pet/types/count`);
 
             const labels = petTypeCounts.map(item => item.pettype);
             const data = petTypeCounts.map(item => item.count);

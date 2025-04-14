@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "../css/login.css";
+import config from '../config';
 
 class Login extends Component {
     state = {
@@ -28,7 +29,7 @@ class Login extends Component {
 
         try 
         {
-            const {data} = await axios.post("http://localhost:9000/auth", user);
+            const {data} = await axios.post(`${config.apiUrl}/auth`, user);
             if(data)
             {
                 window.location.href = "/admin";

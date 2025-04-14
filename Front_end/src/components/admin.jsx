@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import "../css/admin.css";
+import config from '../config.js';
 
 class Admin extends Component {
     state = {
@@ -21,10 +22,10 @@ class Admin extends Component {
 
     componentDidMount = async () => {
         try {
-            const { data: petData } = await axios.get('http://localhost:9000/pet');
+            const { data: petData } = await axios.get(`${config.apiUrl}/pet`);
             this.setState({ pets: petData });
 
-            const { data: petTypesData } = await axios.get('http://localhost:9000/pet/types');
+            const { data: petTypesData } = await axios.get(`${config.apiUrl}/pet/types`);
             this.setState({ petTypes: petTypesData });
         } catch (e) {
             toast.error("Error fetching the data");
@@ -36,8 +37,8 @@ class Admin extends Component {
         if (!confirmDelete) return;
 
         try {
-            const {data} = await axios.get(`http://localhost:9000/pet/${petId}`);
-            const {status: deleteStatus} = await axios.delete(`http://localhost:9000/pet/${petId}`);
+            const {data} = await axios.get(`${config.apiUrl}/pet/${petId}`);
+            const {status: deleteStatus} = await axios.delete(`${config.apiUrl}/pet/${petId}`);
             if(deleteStatus === 204)
             {
                 this.setState(prevState => ({
@@ -45,7 +46,7 @@ class Admin extends Component {
                 }));
                 toast.success("Pet deleted successfully");
 
-                const {status: emailStatus} = await axios.post(`http://localhost:9000/pet/email`, data);
+                const {status: emailStatus} = await axios.post(`${config.apiUrl}/pet/email`, data);
                 if(emailStatus === 200)
                 {
                     toast.success("Successfully send email to administrator");
@@ -79,7 +80,7 @@ class Admin extends Component {
         };
 
         try {
-            const {status} = await axios.put(`http://localhost:9000/pet/${editingPet._id}`, updatedPet);
+            const {status} = await axios.put(`${config.apiUrl}/pet/${editingPet._id}`, updatedPet);
             if (status === 204)
             {
                 this.setState(prevState => ({
@@ -127,7 +128,7 @@ class Admin extends Component {
         };
 
         try {
-            const { data, status } = await axios.post('http://localhost:9000/pet', newPet);
+            const { data, status } = await axios.post(`${config.apiUrl}/pet`, newPet);
             if(status === 201)
             {
                 this.setState(prevState => ({

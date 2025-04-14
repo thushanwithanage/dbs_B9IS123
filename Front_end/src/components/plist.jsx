@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "../css/plist.css";
+import config from '../config';
 
 class PList extends Component {
     state = {
@@ -16,10 +17,10 @@ class PList extends Component {
 
     componentDidMount = async () => {
         try {
-            const { data: petData } = await axios.get('http://localhost:9000/pet');
+            const { data: petData } = await axios.get(`${config.apiUrl}/pet`);
             this.setState({ pets: petData, filteredPets: petData });
 
-            const { data: petTypesData } = await axios.get('http://localhost:9000/pet/types');
+            const { data: petTypesData } = await axios.get(`${config.apiUrl}/pet/types`);
             this.setState({ petTypes: petTypesData });
         } catch (e) {
             toast.error("Error fetching the data");
