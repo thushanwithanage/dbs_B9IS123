@@ -28,14 +28,14 @@ mongoose
     .then(() => {
         console.log("Database connected successfully");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error("MongoDB connection error:", err));
 
-// Export the app for testing
+// Export the app for testing (optional)
 module.exports = app;
 
-// Start the server
+// Start the server if not in test mode
 if (process.env.NODE_ENV !== "test") {
-    app.listen(port, () => {
-        console.log("Listening on port " + port);
+    app.listen(port, '0.0.0.0', () => {
+        console.log("Server is listening on port " + port);
     });
 }
